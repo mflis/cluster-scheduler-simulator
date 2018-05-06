@@ -52,9 +52,7 @@ abstract class Simulator(logging: Boolean = false) {
   def agendaSize = agenda.size
 
   def log(s: => String) {
-    if (!logging) {
-      null
-    } else {
+    if (logging) {
       println(curtime + " " + s)
     }
   }

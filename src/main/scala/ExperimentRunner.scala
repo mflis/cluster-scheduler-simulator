@@ -241,7 +241,6 @@ class Experiment(
                   workloadStats.setNumJobs(workload.numJobs)
                   workloadStats.setNumJobsScheduled(
                     workload.getJobs.filter(_.numSchedulingAttempts > 0).length)
-                  workload
                   workloadStats.setJobThinkTimes90Percentile(
                     workload.jobUsefulThinkTimesPercentile(0.9))
                   workloadStats.setAvgJobQueueTimesTillFirstScheduled(
