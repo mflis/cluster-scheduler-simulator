@@ -804,7 +804,7 @@ object Simulation {
                 .format(completed.length, numFinishedExps, numTotalExps))
       }
       completed.foreach(x => try x.get() catch {
-        case e => e.printStackTrace()
+        case e: Throwable => e.printStackTrace()
       })
       futures = running
     }
