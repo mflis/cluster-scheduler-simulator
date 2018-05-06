@@ -25,6 +25,7 @@
 name := "Omega Simulator"
 
 version := "0.1"
+scalaVersion := "2.12.6"
 
 organization := "edu.berkeley.cs"
 
@@ -38,4 +39,3 @@ libraryDependencies += "org.apache.commons" % "commons-math" % "2.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "1.7.2" % "test"
 
 libraryDependencies += "com.google.protobuf" % "protobuf-java" % "2.4.1"
-
