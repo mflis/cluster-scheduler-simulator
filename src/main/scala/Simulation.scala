@@ -29,7 +29,6 @@ import java.nio.channels.FileChannel
 
 import ClusterSchedulingSimulation.Workloads._
 import ClusterSchedulingSimulation._
-import ca.zmatrix.utils._
 
 import scala.collection.mutable.ArrayBuffer
 

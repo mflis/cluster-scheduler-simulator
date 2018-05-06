@@ -26,7 +26,7 @@
 
 /*
  * ParseParms.scala
- * 
+ *
  * Copied from: http://code.google.com/p/parse-cmd/wiki/AScalaParserClass
  *
  * ParseParms is an implementation of a command-line argument parser in Scala.
@@ -46,7 +46,7 @@
  *
  *   The Boolean indicates success and Map contains merged values: e.g.
  *   supplied command-line arguments compared and merged agains defined parms.
- *   
+ *
  *   Failure, false, includes an error message in String; Map is empty
  *
  *   The String includes an error message indicating missing required parms
@@ -61,7 +61,7 @@
  *   2009.07.24
  */
 
-package ca.zmatrix.utils
+package ClusterSchedulingSimulation
 
 class ParseParms(val help: String) {
 
