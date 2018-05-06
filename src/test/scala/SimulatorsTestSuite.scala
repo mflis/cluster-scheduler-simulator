@@ -24,7 +24,10 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   */
 
-import ClusterSchedulingSimulation._
+import ClusterSchedulingSimulation.core._
+import ClusterSchedulingSimulation.mesos.{MesosAllocator, MesosScheduler, MesosSimulator}
+import ClusterSchedulingSimulation.monolithic.MonolithicScheduler
+import ClusterSchedulingSimulation.omega.{OmegaScheduler, OmegaSimulator}
 import org.scalatest.FunSuite
 
 import scala.sys.process._

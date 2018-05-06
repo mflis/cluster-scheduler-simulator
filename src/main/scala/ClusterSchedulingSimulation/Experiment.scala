@@ -29,6 +29,7 @@ package ClusterSchedulingSimulation
 import java.io._
 
 import ClusterSchedulingSimulation.ClusterSimulationProtos._
+import ClusterSchedulingSimulation.core.{ClusterSimulatorDesc, Workload, WorkloadDesc}
 
 import scala.collection.mutable.ListBuffer
 

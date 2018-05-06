@@ -24,105 +24,12 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   */
 
-package ClusterSchedulingSimulation
+package ClusterSchedulingSimulation.omega
+
+import ClusterSchedulingSimulation.core._
 
 import scala.collection.mutable.HashMap
 
-class OmegaSimulatorDesc(
-                          val schedulerDescs: Seq[OmegaSchedulerDesc],
-                          runTime: Double,
-                          val conflictMode: String,
-                          val transactionMode: String)
-  extends ClusterSimulatorDesc(runTime) {
-  override
-  def newSimulator(constantThinkTime: Double,
-                   perTaskThinkTime: Double,
-                   blackListPercent: Double,
-                   schedulerWorkloadsToSweepOver: Map[String, Seq[String]],
-                   workloadToSchedulerMap: Map[String, Seq[String]],
-                   cellStateDesc: CellStateDesc,
-                   workloads: Seq[Workload],
-                   prefillWorkloads: Seq[Workload],
-                   logging: Boolean = false): ClusterSimulator = {
-    assert(blackListPercent >= 0.0 && blackListPercent <= 1.0)
-    var schedulers = HashMap[String, OmegaScheduler]()
-    // Create schedulers according to experiment parameters.
-    println("Creating %d schedulers.".format(schedulerDescs.length))
-    schedulerDescs.foreach(schedDesc => {
-      // If any of the scheduler-workload pairs we're sweeping over
-      // are for this scheduler, then apply them before
-      // registering it.
-      var constantThinkTimes = HashMap[String, Double](
-        schedDesc.constantThinkTimes.toSeq: _*)
-      var perTaskThinkTimes = HashMap[String, Double](
-        schedDesc.perTaskThinkTimes.toSeq: _*)
-      var newBlackListPercent = 0.0
-      if (schedulerWorkloadsToSweepOver
-        .contains(schedDesc.name)) {
-        newBlackListPercent = blackListPercent
-        schedulerWorkloadsToSweepOver(schedDesc.name)
-          .foreach(workloadName => {
-            constantThinkTimes(workloadName) = constantThinkTime
-            perTaskThinkTimes(workloadName) = perTaskThinkTime
-          })
-      }
-      println("Creating new scheduler %s".format(schedDesc.name))
-      schedulers(schedDesc.name) =
-        new OmegaScheduler(schedDesc.name,
-          constantThinkTimes.toMap,
-          perTaskThinkTimes.toMap,
-          math.floor(newBlackListPercent *
-            cellStateDesc.numMachines.toDouble).toInt)
-    })
-    val cellState = new CellState(cellStateDesc.numMachines,
-      cellStateDesc.cpusPerMachine,
-      cellStateDesc.memPerMachine,
-      conflictMode,
-      transactionMode)
-    println("Creating new OmegaSimulator with schedulers %s."
-      .format(schedulers.values.map(_.toString).mkString(", ")))
-    println("Setting OmegaSimulator(%s, %s)'s common cell state to %d"
-      .format(conflictMode,
-        transactionMode,
-        cellState.hashCode))
-    new OmegaSimulator(cellState,
-      schedulers.toMap,
-      workloadToSchedulerMap,
-      workloads,
-      prefillWorkloads,
-      logging)
-  }
-}
-
-/**
-  * A simple subclass of SchedulerDesc for extensibility to
-  * for symmetry in the naming of the type so that we don't
-  * have to use a SchedulerDesc for an OmegaSimulator.
-  */
-class OmegaSchedulerDesc(name: String,
-                         constantThinkTimes: Map[String, Double],
-                         perTaskThinkTimes: Map[String, Double])
-  extends SchedulerDesc(name,
-    constantThinkTimes,
-    perTaskThinkTimes)
-
-class OmegaSimulator(cellState: CellState,
-                     override val schedulers: Map[String, OmegaScheduler],
-                     workloadToSchedulerMap: Map[String, Seq[String]],
-                     workloads: Seq[Workload],
-                     prefillWorkloads: Seq[Workload],
-                     logging: Boolean = false,
-                     monitorUtilization: Boolean = true)
-  extends ClusterSimulator(cellState,
-    schedulers,
-    workloadToSchedulerMap,
-    workloads,
-    prefillWorkloads,
-    logging,
-    monitorUtilization) {
-  // Set up a pointer to this simulator in each scheduler.
-  schedulers.values.foreach(_.omegaSimulator = this)
-}
 
 /**
   * While an Omega Scheduler has jobs in its job queue, it:

@@ -29,6 +29,10 @@ import java.nio.channels.FileChannel
 
 import ClusterSchedulingSimulation.Workloads._
 import ClusterSchedulingSimulation._
+import ClusterSchedulingSimulation.core.{ExpExpExpWorkloadGenerator, SchedulerDesc, WorkloadDesc}
+import ClusterSchedulingSimulation.mesos.{MesosSchedulerDesc, MesosSimulatorDesc}
+import ClusterSchedulingSimulation.monolithic.MonolithicSimulatorDesc
+import ClusterSchedulingSimulation.omega.{OmegaSchedulerDesc, OmegaSimulatorDesc}
 
 import scala.collection.mutable.ArrayBuffer
 

@@ -28,6 +28,8 @@ package ClusterSchedulingSimulation
 
 import java.io.File
 
+import ClusterSchedulingSimulation.core._
+
 /**
   * Set up workloads based on measurements from a real cluster.
   * In the Eurosys paper, we used measurements from Google clusters here.
