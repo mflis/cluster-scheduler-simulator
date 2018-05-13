@@ -3,3 +3,5 @@ experiment_results
 *.swp
 target
 project/target
+*.pyc
+virtualenv
